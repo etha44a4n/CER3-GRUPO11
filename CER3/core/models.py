@@ -15,10 +15,10 @@ class Evento(models.Model):
         ("AY", "Ayudantías"),
         ("HA", "Hito Académico"),
         ("SA", "Secretaría Académica"),
-        ("", "OAI"),
+        ("OA", "OAI"),
     ]
 
-    SEGMENTO_CHIOCES = [
+    SEGMENTO_CHOICES = [
         ("CU", "Comunidad USM"),
         ("ES", "Estudiante"),
         ("PR", "Profesor"),
@@ -30,4 +30,7 @@ class Evento(models.Model):
     titulo = models.CharField(max_length=55)
     descripcion = models.CharField(max_length=100)
     tipo = models.CharField(max_length=2, choices=TIPO_CHOICES)
-    segmento = models.CharField(max_length=2, choices=SEGMENTO_CHIOCES)
+    segmento = models.CharField(max_length=2, choices=SEGMENTO_CHOICES)
+
+    def __str__(self) -> str:
+        return self.titulo
