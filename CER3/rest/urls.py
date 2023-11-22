@@ -3,7 +3,7 @@ from .views import EventoViewSet
 from django.urls import path, include 
 
 router = routers.DefaultRouter()
-router.register('eventos', EventoViewSet)
+router.register('evento', EventoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -3,5 +3,5 @@ from core.models import Evento
 
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
-        Model = Evento
-        Fields = '__all__'
+        model = Evento
+        fields = '__all__'
