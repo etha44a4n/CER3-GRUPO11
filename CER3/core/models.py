@@ -15,7 +15,7 @@ class Evento(models.Model):
         ("AY", "Ayudantías"),
         ("HA", "Hito Académico"),
         ("SA", "Secretaría Académica"),
-        ("", "OAI"),
+        ("OA", "OAI"),
     ]
 
     SEGMENTO_CHIOCES = [
@@ -31,3 +31,6 @@ class Evento(models.Model):
     descripcion = models.CharField(max_length=100)
     tipo = models.CharField(max_length=2, choices=TIPO_CHOICES)
     segmento = models.CharField(max_length=2, choices=SEGMENTO_CHIOCES)
+
+    def __str__(self):
+        return self.titulo
