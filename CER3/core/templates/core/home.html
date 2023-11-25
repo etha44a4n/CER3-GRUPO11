@@ -42,8 +42,8 @@
                   Segmento
             </option>
             {% for segmento in segmentos %}
-              <option value="{{ segmento }}" 
-                      {% if segmento_seleccionado == segmento %} 
+              <option value="{{ segmento.0 }}" 
+                      {% if segmento_seleccionado == segmento.0 %} 
                       selected 
                       {% endif %}>
                     {{ segmento.1 }}
@@ -51,12 +51,8 @@
             {% endfor %}
           </select>
         </div>
-      </form>
-    </div>
-
-    <div class="col">
-      <form method="GET" action="{% url 'home' %}">
-        <select class="form-select" name="tipo" onchange="this.form.submit()">
+        <div class="col-md-3 col">
+          <select class="form-select" name="tipo" onchange="this.form.submit()">
             <option value="Todos" 
                       {% if tipo_seleccionado == "Todos" %}
                       selected
@@ -64,16 +60,18 @@
                     Tipo
               </option>
               {% for tipo in tipos %}
-                <option value="{{ tipo }}" 
-                        {% if tipo_seleccionado == tipo %} 
+                <option value="{{ tipo.0 }}" 
+                        {% if tipo_seleccionado == tipo.0 %} 
                         selected 
                         {% endif %}>
-                      {{ tipo.1 }}
+                      {{ tipo }}
                 </option>
               {% endfor %} 
-        </select>
-      </form>   
+          </select>
+        </div>
+      </form>
     </div>
+
 </div>
 
 {% if user.is_authenticated %}

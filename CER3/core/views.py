@@ -12,24 +12,29 @@ def home(request):
     tipos = Evento.TIPO_CHOICES
     tipo_seleccionado = request.GET.get("tipo")
     
-    if segmento_seleccionado == 'Todos' or segmento_seleccionado is None:
+    if (segmento_seleccionado == 'Todos' or segmento_seleccionado is None) and (tipo_seleccionado == 'Todos' or tipo_seleccionado is None):
         eventos = Evento.objects.all()
     else:
-        for segmento in segmentos:
-            if str(segmento) == str(segmento_seleccionado):
-                eventos = Evento.objects.filter(segmento=segmento[0])
-                break
+        if segmento_seleccionado == 'Todos' or segmento_seleccionado is None:
+            for tipo in tipos:
+                if str(tipo[0]) == str(tipo_seleccionado):
+                    eventos = Evento.objects.filter(tipo=tipo[0])
+                    break
+        
+        elif tipo_seleccionado == 'Todos' or tipo_seleccionado is None:
+            for segmento in segmentos:
+                if str(segmento[0]) == str(segmento_seleccionado):
+                    eventos = Evento.objects.filter(segmento=segmento[0])
+                    break
 
-    if tipo_seleccionado == 'Todos' or tipo_seleccionado is None:
-        eventos = Evento.objects.all()
-    else:
-        for tipo in tipos:
-            if str(tipo) == str(tipo_seleccionado):
-                print("Tabn el tipo")
-                eventos = Evento.objects.filter(tipo=tipo[0])
-                print(eventos)
-                break        
-    print(segmento_seleccionado, tipo_seleccionado)   
+        else:
+            for tipo in tipos:
+                for segmento in segmentos:
+                    if str(tipo) == str(tipo_seleccionado) and str(segmento) == str(segmento_seleccionado):
+                        eventos = Evento.objects.filter(segmento=segmento[0], tipo=tipo[0])
+                        break
+            eventos = Evento.objects.all()
+   
     data = {
         "title": title,
         "eventos": eventos,
