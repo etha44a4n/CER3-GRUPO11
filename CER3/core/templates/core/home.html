@@ -36,7 +36,7 @@
                     {% if segmento_seleccionado == "Todos" %}
                     selected
                     {% endif %}>
-                  Todos
+                  Segmento
             </option>
             {% for segmento in segmentos %}
               <option value="{{ segmento }}" 
@@ -50,14 +50,26 @@
         </div>
       </form>
     </div>
-    <div class="col">
-      <select class="form-select" aria-label="Tipo">
-        <option selected>Tipo</option>
-        {% for tipo in tipos %}
-          <option value="{{ tipo }}"> {{ tipo.1 }}</option>
 
-        {% endfor %}
-      </select>
+    <div class="col">
+      <form method="GET" action="{% url 'home' %}">
+        <select class="form-select" name="tipo" onchange="this.form.submit()">
+            <option value="Todos" 
+                      {% if tipo_seleccionado == "Todos" %}
+                      selected
+                      {% endif %}>
+                    Tipo
+              </option>
+              {% for tipo in tipos %}
+                <option value="{{ tipo }}" 
+                        {% if tipo_seleccionado == tipo %} 
+                        selected 
+                        {% endif %}>
+                      {{ tipo.1 }}
+                </option>
+              {% endfor %} 
+        </select>
+      </form>   
     </div>
 </div>
 
