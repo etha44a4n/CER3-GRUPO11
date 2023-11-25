@@ -68,16 +68,19 @@
   <table class="table">
     <thead>
       <tr>
-
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Hito</th>
+        <th scope="col">Fecha Inicio</th>
+        <th scope="col">Fecha Término</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Hito</th>
       </tr>
     </thead>
     <tbody>
       {% for evento in eventos %}
       <tr>
         <td>{{ evento.titulo }}</td>
+        <td>{{ evento.fechaInicio }}</td>
+        <td>{{ evento.fechaTermino}}</td>
         <td>{{ evento.tipo }}</td>
         <td>{{ evento.segmento }}</td>
       </tr>
