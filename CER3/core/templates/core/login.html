@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+{% load static %}
+
+{{error}}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Login</button>
+
+</form>
+
+
+{% endblock %}
