@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Evento
+from .models import Evento, Segmento
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -7,7 +7,7 @@ from django.db import IntegrityError
 
 def home(request):
     title = "Home"
-    segmentos = Evento.SEGMENTO_CHOICES
+    segmentos = Segmento.objects.all()
     segmento_seleccionado = request.GET.get("segmento")
     tipos = Evento.TIPO_CHOICES
     tipo_seleccionado = request.GET.get("tipo")
@@ -22,26 +22,24 @@ def home(request):
                     break
         
         elif tipo_seleccionado == 'Todos' or tipo_seleccionado is None:
-            for segmento in segmentos:
-                if str(segmento[0]) == str(segmento_seleccionado):
-                    eventos = Evento.objects.filter(segmento=segmento[0])
-                    break
+            segmento_a_filtrar = Segmento.objects.get(nombre=segmento_seleccionado)
+            eventos = Evento.objects.filter(segmento=segmento_a_filtrar)
 
         else:
+            segmento_a_filtrar = Segmento.objects.get(nombre=segmento_seleccionado)
             for tipo in tipos:
-                for segmento in segmentos:
-                    if str(tipo) == str(tipo_seleccionado) and str(segmento) == str(segmento_seleccionado):
-                        eventos = Evento.objects.filter(segmento=segmento[0], tipo=tipo[0])
-                        break
-            eventos = Evento.objects.all()
+                if tipo[0] == tipo_seleccionado:
+                    eventos = Evento.objects.filter(segmento=segmento_a_filtrar, tipo=tipo[0])
+                    break
+            
    
     data = {
         "title": title,
         "eventos": eventos,
         "segmentos" :segmentos,
         "tipos": tipos,
-        "segmentoselec": segmento_seleccionado,
-        "tiposelec": tipo_seleccionado,
+        "segmento_seleccionado": segmento_seleccionado,
+        "tipo_seleccionado": tipo_seleccionado,
     }
     return render(request, 'core/home.html', data)
 
@@ -56,7 +54,9 @@ def iniciarSesion(request):
         }
         return render(request, 'core/login.html', data)
     else:
+        print(authenticate(request, username='percy', password='1234'))
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        print(authenticate(request, username='percy', password='1234'))
         if user is None:
             data = {
                 'form': AuthenticationForm,

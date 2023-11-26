@@ -1,5 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
+class Segmento(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    def __str__(self) -> str:
+        return self.nombre
 
 class Evento(models.Model):
     TIPO_CHOICES = [
@@ -17,20 +23,17 @@ class Evento(models.Model):
         ("SA", "Secretaría Académica"),
         ("OA", "OAI"),
     ]
-
-    SEGMENTO_CHOICES = [
-        ("CU", "Comunidad USM"),
-        ("ES", "Estudiante"),
-        ("PR", "Profesor"),
-        ("JF","Jefe de Carrera"),
-    ]
-
+    id = models.BigAutoField(primary_key=True)
     fechaInicio = models.DateTimeField(auto_now_add=False)
     fechaTermino = models.DateTimeField(auto_now_add=False)
     titulo = models.CharField(max_length=55)
     descripcion = models.CharField(max_length=100)
     tipo = models.CharField(max_length=2, choices=TIPO_CHOICES)
-    segmento = models.CharField(max_length=2, choices=SEGMENTO_CHOICES)
+    segmento = models.ManyToManyField(Segmento)
 
     def __str__(self) -> str:
         return self.titulo
+
+class TipoUsuario(AbstractUser):
+    tipo_cuenta = models.ForeignKey(Segmento, on_delete=models.CASCADE, null=True)
+

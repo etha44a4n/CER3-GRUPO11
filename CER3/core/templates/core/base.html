@@ -15,6 +15,31 @@
   </head>
   <body>
     <div class="container-fluid">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="{% static 'core/img/Logo_UTFSM.png' %}" class="img-fluid" style="max-height: 60px;" alt="">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+                  {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                      <a class="nav-link text-white" href="{% url 'admin:index' %}" target="_blank">Administración</a>
+                    {% endif %}
+                    <a class="nav-link text-white" href="logout">Logout</a>
+                  {% else %}
+                    <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </nav>
+      </div>
         
         {% block content %}
 
