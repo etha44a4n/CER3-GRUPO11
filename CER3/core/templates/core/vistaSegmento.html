@@ -1,26 +1,22 @@
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="container">
+  <div class="row">
     <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
+      <h1>Próximos Eventos {{segmento_usuario}}</h1>
     </div>
   </div>
+  
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for evento in eventos_segmento %}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title">{{evento.fechaInicio|date:"d"}}</h3>
+            <h4 class="card-title text-body-secondary">{{evento.fechaInicio|date:"F"}}</h4>
+            <h6 class="card-text">{{evento.titulo}}</h6>
+            <p class="card-text">{{evento.descripcion}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+</div>

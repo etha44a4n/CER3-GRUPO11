@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway:wght@200;300;400&family=Roboto+Condensed:wght@300&family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway:wght@200;300;400&family=Roboto+Condensed:wght@300&family=Staatliches&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'core/img/Logo_UTFSM.png' %}" class="img-fluid" style="max-height: 60px;" alt="">
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,12 +26,12 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                  <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+                  <a class="nav-link text-white" aria-current="page" href="{% url 'home' %}">Home</a>
                   {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                       <a class="nav-link text-white" href="{% url 'admin:index' %}" target="_blank">Administración</a>
                     {% endif %}
-                    <a class="nav-link text-white" href="logout">Logout</a>
+                    <a class="nav-link text-white" href="logout">Logout, {{username}}</a>
                   {% else %}
                     <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
                   {% endif %}
@@ -46,7 +46,7 @@
         {% endblock %}
     </div>
     
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
