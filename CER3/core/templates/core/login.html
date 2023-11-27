@@ -3,13 +3,20 @@
 {% block content %}
 {% load static %}
 
-{{error}}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>Login</button>
 
-</form>
+<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="card d-flex justify-content-center align-items-center" style="width: 18rem; background: #005f94;">
+        <div class="card-body">
+        <h5 class="card-title text-white">Login</h5>
+            <p style="color: #D60019;">{{error}}</p>
+            <form action="" method="POST" class="text-white">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>Login</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}

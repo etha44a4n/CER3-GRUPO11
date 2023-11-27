@@ -3,22 +3,16 @@
 {% block content %}
 {% load static %}
 
-<div class="row"style="background: #005f94;">
-  <div class="card border-0 d-none d-md-block text-center" style="background: #005f94;">
-    <img src="{% static 'core/img/fondos_color_2.png' %}" class="img-fluid object-fit-contain" style="max-height: 90vh; width: 100%;" alt="...">
-    <div class="card-img-overlay">
-      <h1 class="card-title text-white">Calendario de Actividades</h1>
-      <h2 class="card-title text-white">2023</h2>
-    </div>
-  </div>
-</div>
+
+{% include 'core/calendario.html' %}
+
 
 
 {% if segmento_usuario != None %}
   {% include 'core/vistaSegmento.html' %}
 {% endif %}
 
-<div class="row">
+<div class="row my-5">
     <form method="GET" action="{% url 'home' %}" class="d-md-flex justify-content-around">
       <div class="col-md-3 col">
         <select class="form-select" name="segmento" onchange="this.form.submit()">
@@ -59,7 +53,7 @@
     </form>
 </div>
 
-<div class="row">
+<div class="row my-5 px-5" id="tabla">
   <table class="table">
     <thead>
       <tr>
@@ -73,23 +67,22 @@
     <tbody>
       {% for evento in eventos %}
         <tr>
-          <td>{{ evento.titulo }}</td>
-          <td>{{ evento.fechaInicio }}</td>
-          <td>{{ evento.fechaTermino}}</td>
-          <td>{{ evento.get_tipo_display }}</td>
-          <td>
-            {% for segmento in evento.segmento.all %}
-              {{ segmento.nombre }}
-              {% if not forloop.last %}-{% endif %}
-            {% endfor %}
-          </td>
+          {% if evento.fechaInicio|date:"Y" == fecha_usuario|date:"Y" %}
+            <td>{{ evento.titulo }}</td>
+            <td>{{ evento.fechaInicio }}</td>
+            <td>{{ evento.fechaTermino}}</td>
+            <td>{{ evento.get_tipo_display }}</td>
+            <td>
+              {% for segmento in evento.segmento.all %}
+                {{ segmento.nombre }}
+                {% if not forloop.last %}-{% endif %}
+              {% endfor %}
+            </td>
+          {% endif %}
         </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-
-<div class="row"></div>
-<div class="row"></div>
 
 {% endblock %}

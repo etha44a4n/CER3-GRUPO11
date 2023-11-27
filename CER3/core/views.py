@@ -13,7 +13,11 @@ def home(request):
     segmento_usuario = None
     username = 'Anónimo'
     eventos_segmento = None
+    fecha_usuario = timezone.now()
+    segmento_dev = None
     if request.user.is_authenticated:
+        if (str(request.user.tipo_cuenta)== 'Developer'):
+            segmento_dev = request.user.tipo_cuenta
         username = request.user.username
         if (str(request.user.tipo_cuenta)== 'Jefe de Carrera' or str(request.user.tipo_cuenta) == 'Profesor'):
             segmento_usuario = request.user.tipo_cuenta
@@ -49,6 +53,8 @@ def home(request):
         "segmento_usuario": segmento_usuario,
         "username": username,
         "eventos_segmento": eventos_segmento,
+        "fecha_usuario": fecha_usuario,
+        'segmento_dev': segmento_dev
     }
     return render(request, 'core/home.html', data)
 
