@@ -23,12 +23,14 @@
                 Segmentos
           </option>
           {% for segmento in segmentos %}
-            <option value="{{ segmento.nombre }}" 
-                    {% if segmento_seleccionado == segmento.nombre %} 
-                    selected 
-                    {% endif %}>
-                  {{ segmento.nombre }}
-            </option>
+            {% if segmento.nombre != 'Developer' %}
+              <option value="{{ segmento.nombre }}" 
+                      {% if segmento_seleccionado == segmento.nombre %} 
+                      selected 
+                      {% endif %}>
+                    {{ segmento.nombre }}
+              </option>
+            {% endif %}
           {% endfor %}
         </select>
       </div>
