@@ -3,6 +3,8 @@ from .permissions import IsDeveloper
 from core.models import Evento
 from .serializers import EventoSerializer
 from rest_framework.filters import SearchFilter
+from core.models import Evento
+from .serializers import EventoSerializer
 
 class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()

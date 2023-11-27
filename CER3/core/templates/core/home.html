@@ -67,7 +67,7 @@
     <tbody>
       {% for evento in eventos %}
         <tr>
-          {% if evento.fechaInicio|date:"Y" == fecha_usuario|date:"Y" %}
+          <!--if evento.fechaInicio|date:"Y" == fecha_usuario|date:"Y" -->
             <td>{{ evento.titulo }}</td>
             <td>{{ evento.fechaInicio }}</td>
             <td>{{ evento.fechaTermino}}</td>
@@ -78,7 +78,7 @@
                 {% if not forloop.last %}-{% endif %}
               {% endfor %}
             </td>
-          {% endif %}
+          <!-- endif -->
         </tr>
       {% endfor %}
     </tbody>
